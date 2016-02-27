@@ -10,7 +10,7 @@ router.post('/', function(req,res){
 
     db.todo.create(body)
         .then(function(todo){
-            return res.status(200).json(todo.toPublicJSON()).send();
+            return res.status(200).json(todo.toJSON()).send();
         }).catch(function(e){
             return res.status(400).json(e).send();
         })
