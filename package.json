@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/cathal-killeen/hash-todo/issues"
   },
-  "homepage": "https://github.com/cathal-killeen/hash-todo#readme"
+  "homepage": "https://github.com/cathal-killeen/hash-todo#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
