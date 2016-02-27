@@ -16,4 +16,15 @@ router.post('/', function(req,res){
         })
 })
 
+router.get('/', function(req, res){
+    var query = req.query;
+
+    db.todo.find()
+        .then(function(todos){
+            return res.status(200).json(todos).send();
+        }).catch(function(e) {
+            return res.status(500).json(e).send();
+        })
+})
+
 module.exports = router;
