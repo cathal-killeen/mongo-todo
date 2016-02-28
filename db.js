@@ -4,6 +4,7 @@ var uri = 'mongodb://admin:cheetos@ds033744.mlab.com:33744/hash-todo-db';
 var db = {};
 
 require('./models/todo');
+require('./models/user');
 
 db.connect = function(){
     return new Promise(function(resolve, reject) {
@@ -20,6 +21,7 @@ db.connect = function(){
 }
 
 db.todo = mongoose.model('todo');
+db.user = mongoose.model('user');
 db.mongoose = mongoose;
 
 module.exports = db;

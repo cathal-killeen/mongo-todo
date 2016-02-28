@@ -8,6 +8,7 @@ var db = require('./db');
 
 app.use(bodyParser.json());
 app.use('/todos', require('./routes/todos')); // todo routes
+app.use('/user', require('./routes/user')); //user routes
 
 // default route
 app.get('/', function(req,res){
