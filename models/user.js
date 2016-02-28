@@ -19,4 +19,11 @@ var UserSchema = new Schema({
     updated: {type: Date, default: Date.now }
 })
 
+UserSchema.pre('save', function(next){
+    if(typeof this.email === 'string'){
+        this.email = this.email.toLowerCase();
+    }
+    return next();
+})
+
 mongoose.model('user', UserSchema);
