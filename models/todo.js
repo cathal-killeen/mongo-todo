@@ -23,9 +23,8 @@ var TodoSchema = new Schema({
     updated: {type: Date, default: Date.now }
 });
 
-TodoSchema.pre('update', function(next){
-    this.updated = Date.now;
-    next();
+TodoSchema.pre('update', function(){
+    this.update({},{$set: {updated: new Date() }}, {upsert: true});
 })
 
 TodoSchema.plugin(mongooseHidden);

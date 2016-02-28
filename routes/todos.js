@@ -57,7 +57,7 @@ router.delete('/:id', function(req,res){
     db.todo.findOne(where)
         .then(function(todo) {
             if(!!todo){
-                todo.update({removed: true}).then(function(todo){
+                todo.update({removed: true}).then(function(){
                     return res.status(204).send();
                 })
             }else{
@@ -87,8 +87,8 @@ router.put('/:id', function(req,res){
 
     db.todo.findOne(where).then(function(todo){
         if(todo){
-            todo.update(attributes).then(function(todo){
-                res.json(todo.toJSON());
+            todo.update(attributes).then(function(){
+                res.status(204).send();
             }, function(e){
                 res.status(400).json(e).send();
             })
