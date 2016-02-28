@@ -5,7 +5,7 @@ var router = express.Router();
 
 // all routes begin with /user
 
-router.post('/', function(req,res){
+router.post('/signup', function(req,res){
     var body = _.pick(req.body, 'email', 'password', 'name');
 
     db.user.create(body)
