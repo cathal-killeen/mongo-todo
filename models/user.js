@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var _ = require('underscore');
 var validate = require('mongoose-validator');
+var validator = require('validator');
 
 var UserSchema = new Schema({
     name: {
@@ -21,7 +22,7 @@ var UserSchema = new Schema({
 
 UserSchema.pre('save', function(next){
     if(typeof this.email === 'string'){
-        this.email = this.email.toLowerCase();
+        this.email = validator.normalizeEmail(this.email);
     }
     return next();
 })

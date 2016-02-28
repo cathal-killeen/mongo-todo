@@ -22,6 +22,7 @@
     "mongoose": "^4.4.5",
     "mongoose-hidden": "^0.6.1",
     "mongoose-validator": "^1.2.4",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "validator": "^5.0.0"
   }
 }
