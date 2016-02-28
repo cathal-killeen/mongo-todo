@@ -18,8 +18,11 @@ router.post('/', function(req,res){
 
 router.get('/', function(req, res){
     var query = req.query;
+    var where = {
+        removed: false
+    }
 
-    db.todo.find()
+    db.todo.find(where)
         .then(function(todos){
             return res.status(200).json(todos).send();
         }).catch(function(e) {
@@ -29,7 +32,8 @@ router.get('/', function(req, res){
 
 router.get('/:id', function(req,res){
     var where = {
-        _id: req.params.id
+        _id: req.params.id,
+        removed: false
     }
 
     db.todo.findOne(where)
@@ -46,18 +50,20 @@ router.get('/:id', function(req,res){
 
 router.delete('/:id', function(req,res){
     var where = {
-        _id: req.params.id
+        _id: req.params.id,
+        removed: false
     }
 
-    db.todo.remove(where)
-        .then(function(WriteResult){
-            console.log(WriteResult);
-            if(WriteResult.result.n === 0){
+    db.todo.findOne(where)
+        .then(function(todo) {
+            if(!!todo){
+                todo.update({removed: true}).then(function(todo){
+                    return res.status(204).send();
+                })
+            }else{
                 return res.status(404).json({
                     error: "No todo with id " + req.params.id
-                }).send();
-            }else{
-                return res.status(204).send();
+                })
             }
         }).catch(function(e){
             return res.status(500).json(e).send();
@@ -66,6 +72,10 @@ router.delete('/:id', function(req,res){
 
 router.put('/:id', function(req,res){
     var body = _.pick(req.body, 'description', 'completed');
+    var where = {
+        _id: req.params.id,
+        removed: false
+    }
     var attributes = {};
 
     if(body.hasOwnProperty('completed')){
@@ -73,10 +83,6 @@ router.put('/:id', function(req,res){
     }
     if(body.hasOwnProperty('description')){
         attributes.description = body.description;
-    }
-
-    var where = {
-        _id: req.params.id
     }
 
     db.todo.findOne(where).then(function(todo){
